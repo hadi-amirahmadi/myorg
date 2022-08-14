@@ -1,0 +1,85 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/shatel-app/my-shatel/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/shatel-app/my-shatel",
+        "index": "apps/shatel-app/my-shatel/src/index.html",
+        "baseHref": "/",
+        "main": "apps/shatel-app/my-shatel/src/main.tsx",
+        "polyfills": "apps/shatel-app/my-shatel/src/polyfills.ts",
+        "tsConfig": "apps/shatel-app/my-shatel/tsconfig.app.json",
+        "assets": [
+          "apps/shatel-app/my-shatel/src/favicon.ico",
+          "apps/shatel-app/my-shatel/src/assets"
+        ],
+        "styles": ["apps/shatel-app/my-shatel/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack",
+        "postcssConfig": "apps/shatel-app/my-shatel/postcss.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/shatel-app/my-shatel/src/environments/environment.ts",
+              "with": "apps/shatel-app/my-shatel/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "shatel-app-my-shatel:build",
+        "hmr": true,
+        "port": 3000
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "shatel-app-my-shatel:build:development"
+        },
+        "production": {
+          "buildTarget": "shatel-app-my-shatel:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/shatel-app/my-shatel/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/shatel-app/my-shatel"],
+      "options": {
+        "jestConfig": "apps/shatel-app/my-shatel/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

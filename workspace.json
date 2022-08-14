@@ -1,5 +1,13 @@
 {
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
-  "projects": {}
+  "projects": {
+    "b2b-app-b2b": "apps/b2b-app/b2b",
+    "b2b-app-b2b-e2e": "apps/b2b-app/b2b-e2e",
+    "shatel-app-my-shatel": "apps/shatel-app/my-shatel",
+    "shatel-app-my-shatel-e2e": "apps/shatel-app/my-shatel-e2e",
+    "sso-app-sso": "apps/sso-app/sso",
+    "sso-app-sso-e2e": "apps/sso-app/sso-e2e",
+    "ui-shared": "libs/ui-shared"
+  }
 }

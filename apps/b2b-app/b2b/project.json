@@ -1,0 +1,83 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/b2b-app/b2b/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/b2b-app/b2b",
+        "index": "apps/b2b-app/b2b/src/index.html",
+        "baseHref": "/",
+        "main": "apps/b2b-app/b2b/src/main.tsx",
+        "polyfills": "apps/b2b-app/b2b/src/polyfills.ts",
+        "tsConfig": "apps/b2b-app/b2b/tsconfig.app.json",
+        "assets": [
+          "apps/b2b-app/b2b/src/favicon.ico",
+          "apps/b2b-app/b2b/src/assets"
+        ],
+        "styles": ["apps/b2b-app/b2b/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/b2b-app/b2b/src/environments/environment.ts",
+              "with": "apps/b2b-app/b2b/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "b2b-app-b2b:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "b2b-app-b2b:build:development"
+        },
+        "production": {
+          "buildTarget": "b2b-app-b2b:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/b2b-app/b2b/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/b2b-app/b2b"],
+      "options": {
+        "jestConfig": "apps/b2b-app/b2b/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

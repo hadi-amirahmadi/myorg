@@ -1,0 +1,84 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/sso-app/sso/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/sso-app/sso",
+        "index": "apps/sso-app/sso/src/index.html",
+        "baseHref": "/",
+        "main": "apps/sso-app/sso/src/main.tsx",
+        "polyfills": "apps/sso-app/sso/src/polyfills.ts",
+        "tsConfig": "apps/sso-app/sso/tsconfig.app.json",
+        "assets": [
+          "apps/sso-app/sso/src/favicon.ico",
+          "apps/sso-app/sso/src/assets"
+        ],
+        "styles": ["apps/sso-app/sso/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/sso-app/sso/src/environments/environment.ts",
+              "with": "apps/sso-app/sso/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "sso-app-sso:build",
+        "hmr": true,
+        "port": 3001
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "sso-app-sso:build:development"
+        },
+        "production": {
+          "buildTarget": "sso-app-sso:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/sso-app/sso/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/sso-app/sso"],
+      "options": {
+        "jestConfig": "apps/sso-app/sso/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
